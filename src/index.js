@@ -72,5 +72,5 @@ const start = async () => {
   }
 // };
 
-window.addEventListener(`load`, start)
+// window.addEventListener(`load`, start)
 
