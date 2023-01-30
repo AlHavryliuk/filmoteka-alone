@@ -4,4 +4,4 @@ import './js/movieAPI';
 import './js/refs';
 import './js/renderMarkup';
 import './js/serialize';
-import './js/loader';
+import './js/main';

@@ -3,8 +3,6 @@ import { modalPopup } from './modalPopup';
 import { render } from './renderMarkup';
 import { refs } from './refs';
 import { savedFilms } from './serialize'
-import throttle from 'lodash/throttle';
-import Notiflix from 'notiflix';
 
 const movieAPI = new theMovieAPI();
 
@@ -41,7 +39,6 @@ const libaryActive = () => {
   }
 };
 
-const removeMovie = id => removeMovieFromLibary(id);
 
 const loadTrailer = async id => {
   const { results } = await movieAPI.fetchTreiler(id);
@@ -59,7 +56,7 @@ const openTrailerPopup = event => {
   const { target, ctrlKey } = event;
   const id = target.dataset.movieId;
   if (id && ctrlKey) {
-    removeMovie(id);
+    removeMovieFromLibary(id);
     return;
   }
   if (id != undefined) loadTrailer(id);

@@ -1,5 +1,5 @@
 import { template } from 'lodash';
-import { genreArray } from './loader';
+import { genreArray } from './main';
 import { refs } from './refs';
 
 const templates = {
