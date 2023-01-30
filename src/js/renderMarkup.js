@@ -127,16 +127,30 @@ export const render = {
   },
 };
 
+// const getGenreList = array => {
+//   let genre = '';
+//   for (const iterator of array) {
+//     genreArray.map(element => {
+//       if (element.id === iterator) {
+//         genre === ''
+//           ? (genre = `${element.name}`)
+//           : (genre += `, ${element.name}`);
+//       }
+//     });
+//   }
+
+//   return genre;
+// };
+
 const getGenreList = array => {
-  let genre = '';
+  let genre = [];
   for (const iterator of array) {
+    if (genre.length > 3) return genre.join(', ');
     genreArray.map(element => {
       if (element.id === iterator) {
-        genre === ''
-          ? (genre = `${element.name}`)
-          : (genre += `, ${element.name}`);
+        genre.push(element.name);
       }
     });
   }
-  return genre;
+  return genre.join(', ');
 };
