@@ -1,3 +1,11 @@
+import './js/libaryManager';
+import './js/modalPopup';
+import './js/movieAPI';
+import './js/refs';
+import './js/renderMarkup';
+import './js/serialize';
+import './js/loader';
+
 // import { theMovieAPI } from './scripts/movieAPI';
 // import { modalPopup } from './scripts/modalPopup';
 // import { render } from './scripts/renderMarkup';

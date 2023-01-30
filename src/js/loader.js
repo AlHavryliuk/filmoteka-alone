@@ -6,6 +6,7 @@ import throttle from 'lodash/throttle';
 import Notiflix from 'notiflix';
 
 const movieAPI = new theMovieAPI();
+
 export const genreArray = [];
 
 const loadTrendingMovie = async () => {
@@ -60,16 +61,16 @@ const openPopup = async ({ target }) => {
 };
 
 const start = async () => {
-  // if (document.location.href.includes(`index`)) {
-  loadAllGenres();
-  await loadTrendingMovie();
-  await modalPopup.addModalListeners();
-  refs.galleryEl.addEventListener(`click`, openPopup);
-  refs.inputSearchEl.addEventListener(
-    `input`,
-    throttle(loadSearchMovies, 1000)
-  );
+  if (document.location.href.includes(`index`)) {
+    loadAllGenres();
+    await loadTrendingMovie();
+    await modalPopup.addModalListeners();
+    refs.galleryEl.addEventListener(`click`, openPopup);
+    refs.inputSearchEl.addEventListener(
+      `input`,
+      throttle(loadSearchMovies, 1000)
+    );
+  }
 };
-// };
 
-window.addEventListener(`load`, start)
+window.addEventListener(`load`, start);
