@@ -1,5 +1,5 @@
-// import { refs } from './refs';
-// import { savedFilms } from './serialize';
+import { refs } from './refs';
+import { savedFilms } from './serialize';
 
 // export const removeMovieFromLibary = id => {
 //   localStorage.clear();
