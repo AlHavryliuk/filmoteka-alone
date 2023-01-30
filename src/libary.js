@@ -62,3 +62,5 @@ const loadLibaryFilms = async () => {
 };
 
 // window.addEventListener(`load`, start)
+
+console.log(`Ok`)
