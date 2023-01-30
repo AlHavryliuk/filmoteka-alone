@@ -1,0 +1,48 @@
+.header__libary-buttons {
+  @extend .header__search-form;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+
+  & button {
+    width: 152px;
+    height: 44px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid white;
+    color: snow;
+    border-radius: 5px;
+
+    // &:hover {
+    //   border-color: red;
+    //   color: red;
+    // }
+
+    &:active {
+      background-color: #ff6b01;
+      border: none;
+
+      &:hover {
+      border-color: red;
+      color: red;
+    }
+    }
+  }
+}
+
+.lHeader__navigation-pages-libary {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: -5%;
+    height: 3px;
+    width: 110%;
+    border-radius: 0px;
+    background-color: red;
+    animation: underlineAnimation;
+    animation-duration: 1500ms;
+  }
+}
