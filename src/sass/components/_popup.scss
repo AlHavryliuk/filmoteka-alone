@@ -76,6 +76,11 @@
   // margin-top: 20px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+
+  &-vote {
+    white-space: nowrap;
+  }
 }
 
 .popup__info-title-about {

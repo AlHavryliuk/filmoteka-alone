@@ -2,6 +2,19 @@ import { template } from 'lodash';
 import { genreArray } from './main';
 import { refs } from './refs';
 
+const getGenreList = array => {
+  let genre = [];
+  for (const iterator of array) {
+    if (genre.length > 3) return genre.join(', ');
+    genreArray.map(element => {
+      if (element.id === iterator) {
+        genre.push(element.name);
+      }
+    });
+  }
+  return genre.join(', ');
+};
+
 const templates = {
   galleryCard(data) {
     return data
@@ -38,7 +51,10 @@ const templates = {
       vote_average,
       vote_count,
       genres,
+      production_countries
     } = data;
+    console.log(data);
+    const country = production_countries[0].name;
     const genre = genres.map(({ name }) => name);
     return ` 
       <div class="popup__image-wrapper">
@@ -48,12 +64,14 @@ const templates = {
           <h1 class="popup__info-title">${title}</h1>
           <div class="popup__info-list-wrapper">
             <ul class="popup__info-list">
-              <li>Vote / Votes</li>
+              <li>Country</li>
+              <li class="popup__info-list-vote">Vote / Votes</li>
               <li>Popularity</li>
               <li>Original Title</li>
               <li>Genre</li>
             </ul>
             <ul class="popup__info-list">
+              <li>${country}</li>
               <li><span class="popup__info-rate">${vote_average.toFixed(
                 1
               )}</span> / ${vote_count}</li>
@@ -142,15 +160,4 @@ export const render = {
 //   return genre;
 // };
 
-const getGenreList = array => {
-  let genre = [];
-  for (const iterator of array) {
-    if (genre.length > 3) return genre.join(', ');
-    genreArray.map(element => {
-      if (element.id === iterator) {
-        genre.push(element.name);
-      }
-    });
-  }
-  return genre.join(', ');
-};
+

@@ -15,14 +15,17 @@ export const savedFilms = {
       (course, index, allFilms) => allFilms.indexOf(course) === index
     );
   },
+
   filterMovieList(event) {
     const { target } = event;
+    targetList = target.dataset.libaryType;
     removeActiveBtnStatus();
     target.classList.add(`isActive`);
+    target.disabled = true;
     const cards = document.querySelectorAll(`.gallery__card-libary`);
     if (target.dataset.libaryType === `all`) {
       return cards.forEach(element => {
-        element.classList.remove(`isHiddenStrong`);
+        element.classList.remove(`isHidden`);
       });
     }
     const filmCategory =
@@ -33,15 +36,29 @@ export const savedFilms = {
     cards.forEach(element => {
       const movieId = element.dataset.movieId;
       if (!filmCategory.includes(movieId)) {
-        element.classList.add(`isHiddenStrong`);
+        element.classList.add(`isHidden`);
       }
     });
+  },
+  targetList() {
+    const btns = document.querySelectorAll(`.header__libary-buttons button`);
+    let result;
+    btns.forEach(element => {
+      if (element.classList.value === 'isActive') {
+        console.log(element.dataset.libaryType);
+        result = element.dataset.libaryType;
+      }
+    });
+    return result;
   },
 };
 
 const removeActiveBtnStatus = () => {
   const btns = document.querySelectorAll(`.header__libary-buttons button`);
-  btns.forEach(element => element.classList.remove(`isActive`));
+  btns.forEach(element => {
+    element.classList.remove(`isActive`);
+    element.disabled = false;
+  });
 };
 
 export const serializeToLS = (id, type) => {

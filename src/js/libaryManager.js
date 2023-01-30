@@ -2,31 +2,9 @@ import { theMovieAPI } from './movieAPI';
 import { modalPopup } from './modalPopup';
 import { render } from './renderMarkup';
 import { refs } from './refs';
-import { savedFilms } from './serialize'
+import { savedFilms } from './serialize';
 
 const movieAPI = new theMovieAPI();
-
-const removeMovieFromLibary = id => {
-  localStorage.clear();
-  savedFilms.queueFilms = savedFilms.queueFilms.filter(
-    element => element != id
-  );
-  savedFilms.watchedFilms = savedFilms.watchedFilms.filter(
-    element => element != id
-  );
-  const galleryCardsLibEl = document.querySelectorAll(`.gallery__card-libary`);
-  console.log(galleryCardsLibEl);
-  galleryCardsLibEl.forEach(element => {
-    console.log(element.dataset.movieId);
-    if (element.dataset.movieId === id) {
-      element.remove();
-    }
-  });
-  if (savedFilms.watchedFilms.length != 0);
-  localStorage.setItem(`watched-movie-list`, savedFilms.watchedFilms);
-  if (savedFilms.queueFilms.length != 0)
-    localStorage.setItem(`queue-movie-list`, savedFilms.queueFilms);
-};
 
 const libaryActive = () => {
   if (document.location.href.includes(`libary`)) {
@@ -39,6 +17,89 @@ const libaryActive = () => {
   }
 };
 
+const loadLibaryFilms = async () => {
+  refs.libaryGalleryEl.innerHTML = '';
+  const films = savedFilms.getAllFilms();
+  try {
+    if (films.length === 0) return;
+    for (let i = 0; i < films.length; i++) {
+      const result = await movieAPI.fetchMovieById(films[i]);
+      render.libaryCard(result);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const removeMovieFromLibary = id => {
+  localStorage.clear();
+  removeMovies(id);
+  if (savedFilms.watchedFilms.length != 0);
+  localStorage.setItem(`watched-movie-list`, savedFilms.watchedFilms);
+  if (savedFilms.queueFilms.length != 0)
+    localStorage.setItem(`queue-movie-list`, savedFilms.queueFilms);
+};
+
+const removeMovies = id => {
+  const galleryCardsLibEl = document.querySelectorAll(`.gallery__card-libary`);
+  const targetList = savedFilms.targetList();
+  switch (targetList) {
+    case `all`:
+      console.log(`Remove from all`);
+      savedFilms.queueFilms = savedFilms.queueFilms.filter(
+        element => element != id
+      );
+      savedFilms.watchedFilms = savedFilms.watchedFilms.filter(
+        element => element != id
+      );
+      galleryCardsLibEl.forEach(element => {
+        if (element.dataset.movieId === id) {
+          element.remove();
+        }
+      });
+      break;
+    case `watched`:
+      console.log(`Remove from watched`);
+      savedFilms.watchedFilms = savedFilms.watchedFilms.filter(
+        element => element != id
+      );
+      if (savedFilms.queueFilms.includes(id)) {
+        galleryCardsLibEl.forEach(element => {
+          if (element.dataset.movieId === id) {
+            element.classList.add(`isHidden`);
+          }
+        });
+      } else {
+        galleryCardsLibEl.forEach(element => {
+          if (element.dataset.movieId === id) {
+            element.remove();
+          }
+        });
+      }
+
+      break;
+    case `queue`:
+      console.log(`Remove from queue`);
+      savedFilms.queueFilms = savedFilms.queueFilms.filter(
+        element => element != id
+      );
+      if (savedFilms.watchedFilms.includes(id)) {
+        galleryCardsLibEl.forEach(element => {
+          if (element.dataset.movieId === id) {
+            element.classList.add(`isHidden`);
+          }
+        });
+      } else {
+        galleryCardsLibEl.forEach(element => {
+          if (element.dataset.movieId === id) {
+            element.remove();
+          }
+        });
+      }
+
+      break;
+  }
+};
 
 const loadTrailer = async id => {
   const { results } = await movieAPI.fetchTreiler(id);
@@ -59,23 +120,11 @@ const openTrailerPopup = event => {
     removeMovieFromLibary(id);
     return;
   }
-  if (id != undefined) loadTrailer(id);
-  modalPopup.toggleHide();
-  modalPopup.addAnimattion();
-  modalPopup.addModalListeners();
-};
-
-const loadLibaryFilms = async () => {
-  refs.libaryGalleryEl.innerHTML = '';
-  const films = savedFilms.getAllFilms();
-  try {
-    if (films.length === 0) return;
-    for (let i = 0; i < films.length; i++) {
-      const result = await movieAPI.fetchMovieById(films[i]);
-      render.libaryCard(result);
-    }
-  } catch (err) {
-    console.log(err);
+  if (id != undefined) {
+    loadTrailer(id);
+    modalPopup.toggleHide();
+    modalPopup.addAnimattion();
+    modalPopup.addModalListeners();
   }
 };
 
