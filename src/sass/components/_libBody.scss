@@ -1,7 +1,8 @@
 .gallery-libary {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(3, 1fr);
+  // display: grid;
+  // gap: 16px;
+  // grid-template-columns: repeat(3, 1fr);
+  @extend .gallery
 }
 
 .gallery__card-libary {
@@ -10,8 +11,6 @@
   &:before {
     content: '"Ctrl" + click to remove';
     display: block;
-    // background-color: #ff69b4;
-    // background-color: red;
     background-color: #e82743;
     position: absolute;
     text-align: center;

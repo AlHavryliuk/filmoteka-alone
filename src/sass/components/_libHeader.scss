@@ -13,6 +13,10 @@
     color: snow;
     border-radius: 5px;
 
+    @include mobile {
+      width: 100px;
+    }
+
     // &:hover {
     //   border-color: red;
     //   color: red;
@@ -28,6 +32,16 @@
     }
     }
   }
+
+  @include mobile{
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 20px;
+  }
+}
+
+.header__navigation-libary{
+  margin: 40px 0 20px;
 }
 
 .lHeader__navigation-pages-libary {

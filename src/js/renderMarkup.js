@@ -51,7 +51,7 @@ const templates = {
       vote_average,
       vote_count,
       genres,
-      production_countries
+      production_countries,
     } = data;
     console.log(data);
     const country = production_countries[0].name;
@@ -64,21 +64,19 @@ const templates = {
           <h1 class="popup__info-title">${title}</h1>
           <div class="popup__info-list-wrapper">
             <ul class="popup__info-list">
-              <li>Country</li>
+              <li class="li__count" >Country</li>
+              <li class="li__count">${country}</li>
               <li class="popup__info-list-vote">Vote / Votes</li>
+               <li><span class="popup__info-rate">${vote_average.toFixed(
+                 1
+               )}</span> / ${vote_count}</li>
               <li>Popularity</li>
+                 <li>${popularity}</li>
               <li>Original Title</li>
+                   <li>${original_title}</li>
               <li>Genre</li>
+                <li>${genre.join(', ')}</li>
             </ul>
-            <ul class="popup__info-list">
-              <li>${country}</li>
-              <li><span class="popup__info-rate">${vote_average.toFixed(
-                1
-              )}</span> / ${vote_count}</li>
-              <li>${popularity}</li>
-              <li>${original_title}</li>
-              <li>${genre.join(', ')}</li>
-              </ul>
             </div>
             <p class="popup__info-title-about">About</p>
             <p class="popup__info-about"><q>${overview}</q></p>
@@ -159,5 +157,3 @@ export const render = {
 
 //   return genre;
 // };
-
-
