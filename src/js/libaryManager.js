@@ -1,8 +1,10 @@
-import { theMovieAPI } from './movieAPI';
 import { modalPopup } from './modalPopup';
-import { render } from './renderMarkup';
-import { refs } from './refs';
 import { savedFilms } from './serialize';
+import { theMovieAPI } from './movieAPI';
+import { render } from './renderMarkup';
+import { hide } from './isHidden';
+import Notiflix from 'notiflix';
+import { refs } from './refs';
 
 const movieAPI = new theMovieAPI();
 
@@ -34,8 +36,8 @@ const loadLibaryFilms = async () => {
 const removeMovieFromLibary = id => {
   localStorage.clear();
   removeMovies(id);
-  if (savedFilms.watchedFilms.length != 0);
-  localStorage.setItem(`watched-movie-list`, savedFilms.watchedFilms);
+  if (savedFilms.watchedFilms.length != 0)
+    localStorage.setItem(`watched-movie-list`, savedFilms.watchedFilms);
   if (savedFilms.queueFilms.length != 0)
     localStorage.setItem(`queue-movie-list`, savedFilms.queueFilms);
 };
@@ -57,38 +59,35 @@ const removeMovies = id => {
           element.remove();
         }
       });
+      Notiflix.Notify.success(`
+The movie has been successfully removed from your library`);
       break;
     case `watched`:
-      console.log(`Remove from watched`);
       savedFilms.watchedFilms = savedFilms.watchedFilms.filter(
         element => element != id
       );
       if (savedFilms.queueFilms.includes(id)) {
-        galleryCardsLibEl.forEach(element => {
-          if (element.dataset.movieId === id) {
-            element.classList.add(`isHidden`);
-          }
-        });
+        hide.moreElements(galleryCardsLibEl, id);
+        Notiflix.Notify.success(`
+The movie has been successfully removed from your "Watched"`);
       } else {
         galleryCardsLibEl.forEach(element => {
           if (element.dataset.movieId === id) {
             element.remove();
           }
         });
+        Notiflix.Notify.success(`
+The movie has been successfully removed from your library`);
       }
-
       break;
     case `queue`:
-      console.log(`Remove from queue`);
       savedFilms.queueFilms = savedFilms.queueFilms.filter(
         element => element != id
       );
       if (savedFilms.watchedFilms.includes(id)) {
-        galleryCardsLibEl.forEach(element => {
-          if (element.dataset.movieId === id) {
-            element.classList.add(`isHidden`);
-          }
-        });
+        hide.moreElements(galleryCardsLibEl, id);
+        Notiflix.Notify.success(`
+The movie has been successfully removed from your "Queue"`);
       } else {
         galleryCardsLibEl.forEach(element => {
           if (element.dataset.movieId === id) {
@@ -96,7 +95,6 @@ const removeMovies = id => {
           }
         });
       }
-
       break;
   }
 };

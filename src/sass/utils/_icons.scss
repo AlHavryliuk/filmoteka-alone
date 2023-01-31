@@ -1,0 +1,23 @@
+.telegram-icon {
+  position: relative;
+
+  &::after {
+    content: '@algavriluk';
+    width: 0;
+    height: 23px;
+
+    position: absolute;
+    visibility: hidden;
+    color: white;
+    bottom: 2px;
+    left: 29px;
+    transition-duration: 250ms;
+  }
+
+  &:hover::after {
+    fill: white;
+    width: 100px;
+    display: block;
+    visibility: visible;
+  }
+}

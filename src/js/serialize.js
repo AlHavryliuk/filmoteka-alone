@@ -32,7 +32,7 @@ export const savedFilms = {
       target.dataset.libaryType === `watched`
         ? savedFilms.watchedFilms
         : savedFilms.queueFilms;
-    cards.forEach(element => element.classList.remove(`isHiddenStrong`));
+    cards.forEach(element => element.classList.remove(`isHidden`));
     cards.forEach(element => {
       const movieId = element.dataset.movieId;
       if (!filmCategory.includes(movieId)) {

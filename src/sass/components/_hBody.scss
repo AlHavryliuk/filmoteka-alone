@@ -1,17 +1,23 @@
 .gallery {
   display: grid;
-  gap: 16px;
+  gap: 22px 16px;
   grid-template-columns: repeat(3, 1fr);
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .gallery__card {
-  height: 643px;
-  grid-column-end: 1fr;
+  grid-column-end: span 1;
   font-size: 20px;
   line-height: 24px;
   text-align: left;
   position: relative;
-  margin-bottom: 16px;
   overflow: hidden;
   border-radius: 5px;
   background: gainsboro;
@@ -23,14 +29,48 @@
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     scale: 1.05;
   }
+
+  & > img {
+    width: 100%;
+    max-height: 590px;
+
+    @include tablet {
+      max-height: 570px;
+    }
+  }
 }
 
 .gallery__card-info {
+  width: 100%;
   padding: 5px 10px 10px 10px;
+
+  @include mobile {
+    text-align: center;
+  }
+}
+
+.gallery__card-title {
+  font-size: 20px;
+  @include tablet {
+    font-size: 19px;
+  }
+
+  @include mobile {
+    font-size: 18px;
+  }
 }
 
 .gallery__card-subtitle {
   color: #ff6b08;
+
+  @include tablet {
+    font-size: 17px;
+  }
+
+  @include mobile {
+    display: none   ;
+    font-size: 14px;
+  }
 }
 
 .target {

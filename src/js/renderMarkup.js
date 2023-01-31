@@ -22,9 +22,9 @@ const templates = {
         const date = release_date.slice(0, 4);
         const genre = getGenreList(genre_ids);
         return `<div class="gallery__card" >
-                <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" width="395" height="574">
+                <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" >
                 <div class="gallery__card-info">
-                <p>${title}</p>
+                <p class="gallery__card-title">${title}</p>
                 <p class="gallery__card-subtitle">${genre} | ${date}</p>
                 <div class="target" data-movie-id="${id}"></div>
                 </div>
@@ -92,7 +92,7 @@ const templates = {
   libaryCard(data) {
     const { id, poster_path, tagline } = data;
     return `<div class="gallery__card-libary" data-movie-id="${id}">
-    <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" width="395" height="574">
+    <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="">
       <div class="gallery__card-info">
        <p><q>${tagline}</q></p>
        </div>

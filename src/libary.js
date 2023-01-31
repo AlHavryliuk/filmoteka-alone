@@ -1,3 +1,4 @@
+import './js/isHidden';
 import './js/libaryManager';
 import './js/modalPopup';
 import './js/movieAPI';
