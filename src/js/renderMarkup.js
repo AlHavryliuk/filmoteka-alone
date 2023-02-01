@@ -132,12 +132,10 @@ const templates = {
           </div>`;
   },
 
-  defaulIframe() {
-    return `<iframe id="player" class="popup__body popup__body-trailer"  src="https://www.youtube.com/embed/"
+  defaulIframe: `<iframe id="player" class="popup__body popup__body-trailer"  src="https://www.youtube.com/embed/"
               title="YouTube video player" frameborder="0" allow="accelerometer; 
               autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-            </iframe>`;
-  },
+    </iframe>`,
 
   libaryCard(data) {
     const { id, poster_path, tagline } = data;
@@ -182,10 +180,6 @@ export const render = {
 
   trend() {
     refs.galleryEl.innerHTML = templates.trend;
-  },
-
-  trailerPopup(key) {
-    refs.popupContent.innerHTML = templates.trailerPopup(key);
   },
 
   defaultIfraim() {
