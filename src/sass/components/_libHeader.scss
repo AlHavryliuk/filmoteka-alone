@@ -13,6 +13,7 @@
     color: snow;
     border-radius: 5px;
     cursor: pointer;
+    transition-duration: 300ms;
 
     @include mobile {
       width: 100px;
@@ -21,11 +22,16 @@
     &:active {
       background-color: #ff6b01;
       border: none;
+    }
 
-      &:hover {
-        border-color: red;
-        color: red;
-      }
+    &:disabled:hover {
+      border-color: red;
+      color: white;
+    }
+
+    &:hover {
+      border-color: red;
+      color: red;
     }
   }
 
@@ -40,8 +46,16 @@
   margin: 40px 0 20px;
 }
 
+.lHeader__navigation-pages-home {
+  transition-duration: 300ms;
+  &:hover {
+    color: red;
+  }
+}
+
 .lHeader__navigation-pages-libary {
   position: relative;
+  transition-duration: 300ms;
 
   &::after {
     content: '';
@@ -54,5 +68,9 @@
     background-color: red;
     animation: underlineAnimation;
     animation-duration: 1500ms;
+  }
+
+  &:hover {
+    color: red;
   }
 }

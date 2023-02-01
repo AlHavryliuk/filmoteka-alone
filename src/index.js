@@ -1,5 +1,5 @@
 import './js/isHidden';
-import './js/libaryManager';
+import './js/libManager';
 import './js/modalPopup';
 import './js/movieAPI';
 import './js/refs';

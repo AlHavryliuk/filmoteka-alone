@@ -1,6 +1,8 @@
 import { serializeToLS, savedFilms } from './serialize';
 import { loadData } from './loaderData';
 import Notiflix from 'notiflix';
+import { libary } from './libManager';
+
 
 const refs = {
   popupEl: document.querySelector(`.popup`),
@@ -18,6 +20,13 @@ export const modalPopup = {
     modalPopup.addModalBtnListener();
     modalPopup.checkButtonAvailability();
     modalPopup.toggleHide();
+  },
+  async openLibary(id) {
+    await loadData.moreInfoLib(id);
+    modalPopup.toggleHide();
+    modalPopup.addAnimattion();
+    modalPopup.addModalListeners();
+    modalPopup.addModalBtnListenerLib();
   },
   toggleHide() {
     refs.popupEl.classList.toggle(`isHidden`);
@@ -53,6 +62,10 @@ export const modalPopup = {
     refs.popupAddWatchedBtn.addEventListener(`click`, saveFilmList);
     refs.popupAddQueueBtn.addEventListener(`click`, saveFilmList);
     refs.popupTrailer = addEventListener(`click`, showTrailer);
+  },
+  addModalBtnListenerLib() {
+    refs.popupRemoveBtn = document.querySelector(`.popup__removeFrLib`);
+    refs.popupRemoveBtn.addEventListener(`click`, libary.remove);
   },
   removeModalBtnListener() {
     refs.popupTrailerBtn.removeEventListener(`click`, showTrailer);

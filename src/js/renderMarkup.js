@@ -86,6 +86,52 @@ const templates = {
           </div>`;
   },
 
+  popupLib(data) {
+    const {
+      id,
+      title,
+      poster_path,
+      overview,
+      original_title,
+      popularity,
+      vote_average,
+      vote_count,
+      genres,
+      production_countries,
+    } = data;
+    const country = production_countries[0].name;
+    const genre = genres.map(({ name }) => name);
+    return ` 
+      <div class="popup__image-wrapper">
+      <img class="popup__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" >
+      </div>
+        <div class="popup__info-wrapper" >
+          <h1 class="popup__info-title">${title}</h1>
+          <div class="popup__info-list-wrapper">
+            <ul class="popup__info-list">
+              <li class="li__count" >Country</li>
+              <li class="li__count">${country}</li>
+              <li class="popup__info-list-vote">Vote / Votes</li>
+               <li><span class="popup__info-rate">${vote_average.toFixed(
+                 1
+               )}</span> / ${vote_count}</li>
+              <li>Popularity</li>
+                 <li>${popularity}</li>
+              <li>Original Title</li>
+                   <li>${original_title}</li>
+              <li>Genre</li>
+                <li>${genre.join(', ')}</li>
+            </ul>
+            </div>
+            <p class="popup__info-title-about">About</p>
+            <p class="popup__info-about"><q>${overview}</q></p>
+            <div class="popup__info-buttons">
+              <button class="popup__removeFrLib" data-serialize-id="${id}" data-type="remove">Remove</button>
+              <button class="popup__watchTrailer" data-serialize-id="${id}" data-type="trailer">Watch trailer</button>
+            </div>
+          </div>`;
+  },
+
   defaulIframe() {
     return `<iframe id="player" class="popup__body popup__body-trailer"  src="https://www.youtube.com/embed/"
               title="YouTube video player" frameborder="0" allow="accelerometer; 
@@ -126,6 +172,10 @@ export const render = {
 
   popupMarkup(data) {
     refs.popupContent.innerHTML = templates.popup(data);
+  },
+
+  popupMarkupLib(data) {
+    refs.popupContent.innerHTML = templates.popupLib(data);
   },
 
   // Render trend-list

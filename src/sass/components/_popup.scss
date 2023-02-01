@@ -92,6 +92,9 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-around;
+  padding: 15px 0px;
+  overflow-y: scroll;
+  
 
   @include tablet {
     flex-direction: row;
@@ -102,7 +105,7 @@
   @include mobile {
     width: 100%;
     height: auto;
-    overflow:auto;
+    overflow: auto;
     gap: 15px;
   }
 }

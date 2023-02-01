@@ -52,6 +52,7 @@
 
 .header__navigation-pages-home {
   position: relative;
+  transition-duration: 300ms;
 
   &::after {
     content: '';
@@ -64,6 +65,17 @@
     background-color: red;
     animation: underlineAnimation;
     animation-duration: 1500ms;
+  }
+
+  &:hover {
+    color: red;
+  }
+}
+
+.header__navigation-pages-libary {
+  transition-duration: 300ms;
+  &:hover {
+    color: red;
   }
 }
 

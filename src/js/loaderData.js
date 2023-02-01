@@ -3,6 +3,7 @@ import { modalPopup } from './modalPopup';
 import { render } from './renderMarkup';
 import Notiflix from 'notiflix';
 import { refs } from './refs';
+import { savedFilms } from './serialize';
 
 const movieAPI = new theMovieAPI();
 
@@ -21,6 +22,12 @@ export const loadData = {
   async moreInfo(movieId) {
     const results = await movieAPI.fetchMovieById(movieId);
     render.popupMarkup(results);
+    modalPopup.addAnimattion();
+  },
+
+  async moreInfoLib(movieId) {
+    const results = await movieAPI.fetchMovieById(movieId);
+    render.popupMarkupLib(results);
     modalPopup.addAnimattion();
   },
 
@@ -64,6 +71,20 @@ export const loadData = {
     No results were found for this query.`);
     } else {
       render.galleryMarkup(moviesList);
+    }
+  },
+
+  async libaryFilms() {
+    refs.libaryGalleryEl.innerHTML = '';
+    const films = savedFilms.getAllFilms();
+    try {
+      if (films.length === 0) return;
+      for (let i = 0; i < films.length; i++) {
+        const result = await movieAPI.fetchMovieById(films[i]);
+        render.libaryCard(result);
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 };
