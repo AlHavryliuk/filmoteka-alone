@@ -72,6 +72,9 @@ export const modalPopup = {
     refs.popupAddWatchedBtn.removeEventListener(`click`, saveFilmList);
     refs.popupAddQueueBtn.removeEventListener(`click`, saveFilmList);
   },
+  removeModalBtnListenerLib() {
+    refs.popupRemoveBtn.removeEventListener(`click`, libary.remove);
+  },
   checkButtonAvailability() {
     const libaryQueueBtn = document.querySelector('.popup__addQueueBtn');
     const libaryWatchedBtn = document.querySelector(`.popup__addWatchedBtn`);

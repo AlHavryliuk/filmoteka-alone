@@ -8,6 +8,7 @@ export const libary = {
     if (isNaN(id)) {
       id = id.target.dataset.serializeId;
       modalPopup.toggleHide();
+      modalPopup.removeModalBtnListenerLib();
     }
     localStorage.clear();
     removeMovies(id);
