@@ -1,5 +1,5 @@
 import { serializeToLS, savedFilms } from './serialize';
-import { loadTrailer } from './loaderData';
+import { loadData } from './loaderData';
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -8,9 +8,17 @@ const refs = {
   popupCloseBtn: document.querySelector(`[data-popup-close]`),
   pseudoPopupTopEl: document.querySelector(`.pseudo-popup-top`),
   pseudoPopuoBottomEl: document.querySelector(`.pseudo-popup-bottom`),
+  popupTrailerEl: document.querySelector('.popup__trailer'),
 };
 
 export const modalPopup = {
+  async open({ target }) {
+    const movieId = target.dataset.movieId;
+    await loadData.moreInfo(movieId);
+    modalPopup.addModalBtnListener();
+    modalPopup.checkButtonAvailability();
+    modalPopup.toggleHide();
+  },
   toggleHide() {
     refs.popupEl.classList.toggle(`isHidden`);
   },
@@ -70,6 +78,10 @@ export const modalPopup = {
       libaryWatchedBtn.innerHTML = `Add to Watched`;
     }
   },
+  escapePopupTrailer() {
+    refs.popupTrailerEl.replaceChildren();
+    refs.popupTrailerEl.classList.add('isHidden');
+  },
 };
 
 const closePopupFromOutside = event => {
@@ -120,13 +132,8 @@ const showTrailer = ({ target }) => {
   }
   try {
     const movieId = target.dataset.serializeId;
-    loadTrailer(movieId);
+    loadData.trailer(movieId);
   } catch (err) {
     console.log(err);
   }
 };
-
-const escapeMenu = () => {
-  const popupEl = document.querySelector(`popup`);
-  popupEl.classList.add
-}

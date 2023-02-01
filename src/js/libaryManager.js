@@ -14,13 +14,12 @@ const libaryActive = () => {
     refs.libaryWatchedBtn.addEventListener(`click`, savedFilms.filterMovieList);
     refs.libaryQueueBtn.addEventListener(`click`, savedFilms.filterMovieList);
     refs.libaryAllBtn.addEventListener(`click`, savedFilms.filterMovieList);
-    // refs.libaryWatchedBtn.addEventListener(`touch`, savedFilms.filterMovieList);
-    // refs.libaryQueueBtn.addEventListener(`touch`, savedFilms.filterMovieList);
-    // refs.libaryAllBtn.addEventListener(`touch`, savedFilms.filterMovieList);
     refs.libaryGalleryEl.addEventListener(`click`, openTrailerPopup);
     loadLibaryFilms();
   }
 };
+
+
 
 const loadLibaryFilms = async () => {
   refs.libaryGalleryEl.innerHTML = '';

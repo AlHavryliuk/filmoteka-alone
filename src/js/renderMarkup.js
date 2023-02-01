@@ -1,12 +1,11 @@
-import { template } from 'lodash';
-import { genreArray } from './main';
+import { loadData } from './loaderData';
 import { refs } from './refs';
 
 const getGenreList = array => {
   let genre = [];
   for (const iterator of array) {
     if (genre.length > 3) return genre.join(', ');
-    genreArray.map(element => {
+    loadData.genreList.map(element => {
       if (element.id === iterator) {
         genre.push(element.name);
       }
@@ -87,12 +86,12 @@ const templates = {
           </div>`;
   },
 
-  // mainTrailer(key) {
-  //   return `<div class="popup popup__trailer"><iframe class="popup__body" width="840" height="472" src="https://www.youtube.com/embed/${key}" 
-  //   title="YouTube video player" frameborder="0" allow="accelerometer; 
-  //   autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  //   allowfullscreen></iframe></div>`;
-  // },
+  defaulIframe() {
+    return `<iframe id="player" class="popup__body popup__body-trailer"  src="https://www.youtube.com/embed/"
+              title="YouTube video player" frameborder="0" allow="accelerometer; 
+              autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+            </iframe>`;
+  },
 
   libaryCard(data) {
     const { id, poster_path, tagline } = data;
@@ -139,6 +138,9 @@ export const render = {
     refs.popupContent.innerHTML = templates.trailerPopup(key);
   },
 
+  defaultIfraim() {
+    refs.popupTrailerEl.insertAdjacentHTML(`beforeend`, templates.defaulIframe);
+  },
   // Render markup for Libary
 
   libaryCard(data) {
@@ -147,17 +149,4 @@ export const render = {
       templates.libaryCard(data)
     );
   },
-
-  // mainTrailer(key) {
-  //   const popupEl = document.querySelector(`.popup`);
-  //   const popupTrailerEl = document.querySelector(`.popup__trailer`);
-  //   popupTrailerEl.addEventListener(`click`, escTrailer);
-  //   popupEl.insertAdjacentHTML(`afterend`, templates.mainTrailer(key));
-  // },
-};
-
-const escTrailer = () => {
-  console.log(`ok`);
-  const popupTrailerEl = document.querySelector(`.popup__trailer`);
-  popupTrailerEl.classList.add(isHidden);
 };
