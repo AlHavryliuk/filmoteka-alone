@@ -53,7 +53,6 @@ const templates = {
       genres,
       production_countries,
     } = data;
-    console.log(data);
     const country = production_countries[0].name;
     const genre = genres.map(({ name }) => name);
     return ` 
@@ -83,9 +82,17 @@ const templates = {
             <div class="popup__info-buttons">
               <button class="popup__addWatchedBtn" data-serialize-id="${id}" data-type="watched">ADD TO WATCHED</button>
               <button class="popup__addQueueBtn" data-serialize-id="${id}" data-type="queue">ADD TO QUEUE</button>
+              <button class="popup__watchTrailer" data-serialize-id="${id}" data-type="trailer">Watch trailer</button>
             </div>
           </div>`;
   },
+
+  // mainTrailer(key) {
+  //   return `<div class="popup popup__trailer"><iframe class="popup__body" width="840" height="472" src="https://www.youtube.com/embed/${key}" 
+  //   title="YouTube video player" frameborder="0" allow="accelerometer; 
+  //   autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  //   allowfullscreen></iframe></div>`;
+  // },
 
   libaryCard(data) {
     const { id, poster_path, tagline } = data;
@@ -110,7 +117,6 @@ export const render = {
   // Render gallery markup
 
   galleryMarkup(data, save) {
-    console.log(data);
     if (save) {
       templates.trend = templates.galleryCard(data);
     }
@@ -141,19 +147,17 @@ export const render = {
       templates.libaryCard(data)
     );
   },
+
+  // mainTrailer(key) {
+  //   const popupEl = document.querySelector(`.popup`);
+  //   const popupTrailerEl = document.querySelector(`.popup__trailer`);
+  //   popupTrailerEl.addEventListener(`click`, escTrailer);
+  //   popupEl.insertAdjacentHTML(`afterend`, templates.mainTrailer(key));
+  // },
 };
 
-// const getGenreList = array => {
-//   let genre = '';
-//   for (const iterator of array) {
-//     genreArray.map(element => {
-//       if (element.id === iterator) {
-//         genre === ''
-//           ? (genre = `${element.name}`)
-//           : (genre += `, ${element.name}`);
-//       }
-//     });
-//   }
-
-//   return genre;
-// };
+const escTrailer = () => {
+  console.log(`ok`);
+  const popupTrailerEl = document.querySelector(`.popup__trailer`);
+  popupTrailerEl.classList.add(isHidden);
+};

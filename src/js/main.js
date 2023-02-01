@@ -60,11 +60,17 @@ const openPopup = async ({ target }) => {
   modalPopup.toggleHide();
 };
 
+const escapeTrailer = () => {
+  console.log(`ok`);
+  refs.popupTrailerEl.classList.add('isHidden');
+};
+
 const start = async () => {
   if (document.location.href.includes(`index`)) {
     loadAllGenres();
     await loadTrendingMovie();
     await modalPopup.addModalListeners();
+    refs.popupTrailerEl.addEventListener(`click`, escapeTrailer);
     refs.galleryEl.addEventListener(`click`, openPopup);
     refs.inputSearchEl.addEventListener(
       `input`,

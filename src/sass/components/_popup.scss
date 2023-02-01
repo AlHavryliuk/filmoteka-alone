@@ -143,6 +143,7 @@
   display: flex;
   gap: 15px;
   justify-content: center;
+  flex-wrap: wrap;
 
   & > button {
     width: 136px;
@@ -160,7 +161,8 @@
     background-color: #ff6b01;
     color: white;
     text-transform: uppercase;
-
+    cursor: pointer;
+    
     &:disabled {
       background-color: #0000002e;
       color: gray;
@@ -177,7 +179,7 @@
     }
 
     &:hover {
-      background-color: rosybrown;
+      background-color: tomato;
     }
 
     @include mobile {

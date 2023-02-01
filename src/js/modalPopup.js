@@ -1,4 +1,5 @@
 import { serializeToLS, savedFilms } from './serialize';
+import { loadTrailer } from './loaderData';
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -40,10 +41,13 @@ export const modalPopup = {
   addModalBtnListener() {
     refs.popupAddWatchedBtn = document.querySelector(`.popup__addWatchedBtn`);
     refs.popupAddQueueBtn = document.querySelector(`.popup__addQueueBtn`);
+    refs.popupTrailerBtn = document.querySelector('.popup__watchTrailer');
     refs.popupAddWatchedBtn.addEventListener(`click`, saveFilmList);
     refs.popupAddQueueBtn.addEventListener(`click`, saveFilmList);
+    refs.popupTrailer = addEventListener(`click`, showTrailer);
   },
   removeModalBtnListener() {
+    refs.popupTrailerBtn.removeEventListener(`click`, showTrailer);
     refs.popupAddWatchedBtn.removeEventListener(`click`, saveFilmList);
     refs.popupAddQueueBtn.removeEventListener(`click`, saveFilmList);
   },
@@ -109,3 +113,20 @@ const saveFilmList = event => {
     console.log(err);
   }
 };
+
+const showTrailer = ({ target }) => {
+  if (!target.classList.value.includes(`popup__watchTrailer`)) {
+    return;
+  }
+  try {
+    const movieId = target.dataset.serializeId;
+    loadTrailer(movieId);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const escapeMenu = () => {
+  const popupEl = document.querySelector(`popup`);
+  popupEl.classList.add
+}

@@ -6,5 +6,6 @@ export const refs = {
   libaryQueueBtn: document.querySelector('[data-libary-type="queue"]'),
   libaryAllBtn: document.querySelector('[data-libary-type="all"]'),
   inputSearchEl: document.querySelector(`[data-input-search]`),
-  popupContent: document.querySelector('.popup__content')
+  popupContent: document.querySelector('.popup__content'),
+  popupTrailerEl: document.querySelector('.popup__trailer')
 };
