@@ -17,11 +17,7 @@ export const savedFilms = {
   },
 
   filterMovieList(event) {
-    // alert(`1`);
     const { target } = event;
-    // alert(target);
-    // targetList = target.dataset.libaryType;
-    // alert(targetList);
     removeActiveBtnStatus();
     target.classList.add(`isActive`);
     target.disabled = true;
