@@ -5,6 +5,7 @@ import { render } from './renderMarkup';
 import { hide } from './isHidden';
 import Notiflix from 'notiflix';
 import { refs } from './refs';
+import { checkAction } from './checkActions';
 
 const movieAPI = new theMovieAPI();
 
@@ -114,6 +115,8 @@ const loadTrailer = async id => {
 };
 
 const openTrailerPopup = event => {
+  
+  console.log(checkAction);
   const { target, ctrlKey } = event;
   const id = target.dataset.movieId;
   if (id && ctrlKey) {
