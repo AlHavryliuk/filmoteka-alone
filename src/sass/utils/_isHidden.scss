@@ -1,18 +1,16 @@
 .isHidden {
-  // opacity: 0;
-  // visibility: hidden;
-  position: absolute;
+  position: absolute !important;
   width: 1px;
   height: 1px;
   margin: -1px;
   border: 0;
   padding: 0;
-
   white-space: nowrap;
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
-  transition-duration: 300ms;
+  transition-duration: 350ms;
+  transition-property: opacity, height;
 }
 
 .isHiddenStrong {
