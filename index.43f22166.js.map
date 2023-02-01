@@ -1,1 +1,0 @@
-{"mappings":"oeAAAA,EAAA,S","sources":["src/index.js"],"sourcesContent":["import './js/isHidden';\nimport './js/libaryManager';\nimport './js/modalPopup';\nimport './js/movieAPI';\nimport './js/refs';\nimport './js/renderMarkup';\nimport './js/serialize';\nimport './js/main';"],"names":["parcelRequire"],"version":3,"file":"index.43f22166.js.map"}
