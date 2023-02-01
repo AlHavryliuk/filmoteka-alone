@@ -1,5 +1,5 @@
-import { modalPopup } from './modalPopup';
 import { savedFilms } from './serialize';
+import { modalPopup } from './modalPopup';
 import { theMovieAPI } from './movieAPI';
 import { render } from './renderMarkup';
 import { hide } from './isHidden';
@@ -13,10 +13,9 @@ const libaryActive = () => {
     refs.libaryWatchedBtn.addEventListener(`click`, savedFilms.filterMovieList);
     refs.libaryQueueBtn.addEventListener(`click`, savedFilms.filterMovieList);
     refs.libaryAllBtn.addEventListener(`click`, savedFilms.filterMovieList);
-    refs.libaryWatchedBtn.addEventListener(`touch`, savedFilms.filterMovieList);
-    refs.libaryQueueBtn.addEventListener(`touch`, savedFilms.filterMovieList);
-    refs.libaryAllBtn.addEventListener(`touch`, savedFilms.filterMovieList);
-    // refs.libaryGalleryEl.addEventListener(`dblclick`, removeMovie);
+    // refs.libaryWatchedBtn.addEventListener(`touch`, savedFilms.filterMovieList);
+    // refs.libaryQueueBtn.addEventListener(`touch`, savedFilms.filterMovieList);
+    // refs.libaryAllBtn.addEventListener(`touch`, savedFilms.filterMovieList);
     refs.libaryGalleryEl.addEventListener(`click`, openTrailerPopup);
     loadLibaryFilms();
   }

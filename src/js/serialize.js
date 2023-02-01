@@ -17,6 +17,7 @@ export const savedFilms = {
   },
 
   filterMovieList(event) {
+    alert(`Work`)
     const { target } = event;
     targetList = target.dataset.libaryType;
     removeActiveBtnStatus();
