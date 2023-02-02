@@ -63,19 +63,21 @@ const removeActiveBtnStatus = () => {
 export const serializeToLS = (id, type) => {
   if (!savedFilms.watchedFilms.includes(id)) {
     // savedFilms.watchedFilms.push(id);
-    savedFilms.watchedFilms.pop(id);
+    savedFilms.watchedFilms.unshift(id);
   }
   switch (type) {
     case `watched`:
       !savedFilms.watchedFilms.includes(id)
         // ? savedFilms.watchedFilms.push(id)
-        ? savedFilms.watchedFilms.pop(id)
+        ? savedFilms.watchedFilms.unshift(id)
         : -1;
       localStorage.setItem(`watched-movie-list`, savedFilms.watchedFilms);
       break;
     case `queue`:
       // !savedFilms.queueFilms.includes(id) ? savedFilms.queueFilms.push(id) : -1;
-      !savedFilms.queueFilms.includes(id) ? savedFilms.queueFilms.pop(id) : -1;
+      !savedFilms.queueFilms.includes(id)
+        ? savedFilms.queueFilms.unshift(id)
+        : -1;
       localStorage.setItem(`queue-movie-list`, savedFilms.queueFilms);
       break;
   }
