@@ -84,3 +84,27 @@
   top: 0;
   left: 0;
 }
+
+.target__load-more {
+  background: red;
+  filter: blur(165px);
+  z-index: 0;
+}
+
+.load-more__card {
+  @extend .gallery__card;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 658px;
+  border: none;
+  z-index: 0;
+  & > img {
+    z-index: 1;
+    width: 45%;
+  }
+
+  @include tablet {
+    height: 584px;
+  }
+}

@@ -3,30 +3,35 @@ import { loadData } from './loaderData';
 import Notiflix from 'notiflix';
 import { libary } from './libManager';
 
-
 const refs = {
   popupEl: document.querySelector(`.popup`),
   popUpContentEl: document.querySelector(`.popup__content`),
   popupCloseBtn: document.querySelector(`[data-popup-close]`),
   pseudoPopupTopEl: document.querySelector(`.pseudo-popup-top`),
   pseudoPopuoBottomEl: document.querySelector(`.pseudo-popup-bottom`),
+  popupTrailerBtn: document.querySelector('.popup__watchTrailer'),
   popupTrailerEl: document.querySelector('.popup__trailer'),
 };
 
 export const modalPopup = {
   async open({ target }) {
     const movieId = target.dataset.movieId;
-    await loadData.moreInfo(movieId);
-    modalPopup.addModalBtnListener();
-    modalPopup.checkButtonAvailability();
-    modalPopup.toggleHide();
+    if (isNaN(movieId) && movieId === `loadMore`) {
+      document.querySelector(`.load-more__card`).remove();
+      loadData.moreMovies();
+    }
+    if (!isNaN(movieId)) {
+      await loadData.moreInfo(movieId);
+      modalPopup.addModalBtnListener();
+      modalPopup.checkButtonAvailability();
+      modalPopup.toggleHide();
+    }
   },
   async openLibary(id) {
     await loadData.moreInfoLib(id);
-    modalPopup.toggleHide();
     modalPopup.addAnimattion();
-    modalPopup.addModalListeners();
     modalPopup.addModalBtnListenerLib();
+    modalPopup.toggleHide();
   },
   toggleHide() {
     refs.popupEl.classList.toggle(`isHidden`);
@@ -52,6 +57,10 @@ export const modalPopup = {
     refs.pseudoPopuoBottomEl.classList.remove('popupBottomAnimation');
   },
   addModalListeners() {
+    refs.popupTrailerEl.addEventListener(
+      `click`,
+      modalPopup.escapePopupTrailer
+    );
     refs.popupEl.addEventListener(`click`, closePopupFromOutside);
     refs.popupCloseBtn.addEventListener(`click`, closeFromBtn);
   },
@@ -61,10 +70,11 @@ export const modalPopup = {
     refs.popupTrailerBtn = document.querySelector('.popup__watchTrailer');
     refs.popupAddWatchedBtn.addEventListener(`click`, saveFilmList);
     refs.popupAddQueueBtn.addEventListener(`click`, saveFilmList);
-    refs.popupTrailer = addEventListener(`click`, showTrailer);
+    refs.popupTrailerBtn.addEventListener(`click`, showTrailer);
   },
   addModalBtnListenerLib() {
     refs.popupRemoveBtn = document.querySelector(`.popup__removeFrLib`);
+    refs.popupTrailer = addEventListener(`click`, showTrailer);
     refs.popupRemoveBtn.addEventListener(`click`, libary.remove);
   },
   removeModalBtnListener() {
@@ -74,6 +84,7 @@ export const modalPopup = {
   },
   removeModalBtnListenerLib() {
     refs.popupRemoveBtn.removeEventListener(`click`, libary.remove);
+    refs.popupTrailer = addEventListener(`click`, showTrailer);
   },
   checkButtonAvailability() {
     const libaryQueueBtn = document.querySelector('.popup__addQueueBtn');

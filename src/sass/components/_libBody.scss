@@ -38,15 +38,7 @@
   @extend .target;
 }
 
-.load-more__card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  & > img {
-    width: 65%;
-  }
-}
 
 .gallery__template {
   width: 3fr;

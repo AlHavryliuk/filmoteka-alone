@@ -98,9 +98,15 @@ const templates = {
       vote_count,
       genres,
       production_countries,
+      runtime,
+      release_date,
+      homepage,
     } = data;
+    console.log(data);
     const country = production_countries[0].name;
     const genre = genres.map(({ name }) => name);
+    const formatRuntime = timeConverter(runtime);
+    const year = release_date.slice(0, 4);
     return ` 
       <div class="popup__image-wrapper">
       <img class="popup__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" >
@@ -111,6 +117,8 @@ const templates = {
             <ul class="popup__info-list">
               <li class="li__count" >Country</li>
               <li class="li__count">${country}</li>
+               <li>Release date</li>
+                <li>${year}</li>
               <li class="popup__info-list-vote">Vote / Votes</li>
                <li><span class="popup__info-rate">${vote_average.toFixed(
                  1
@@ -121,6 +129,8 @@ const templates = {
                    <li>${original_title}</li>
               <li>Genre</li>
                 <li>${genre.join(', ')}</li>
+              <li>Runtime</li>
+                <li>${formatRuntime}</li>    
             </ul>
             </div>
             <p class="popup__info-title-about">About</p>
@@ -148,12 +158,10 @@ const templates = {
   </div>`;
   },
 
-  loadMoreBtn() {
-    return `<div class="gallery__card load-more__card" >
-                <img src="http://cdn.onlinewebfonts.com/svg/img_260976.png">
-               
-            </div>`;
-  },
+  loadMoreBtn: `<button class="load-more__card" >
+      <img data-movie-id="loadMore" src="http://cdn.onlinewebfonts.com/svg/img_260976.png">
+      <div class="target target__load-more" data-movie-id="loadMore"></div>
+    </button>`,
 };
 
 export const render = {
@@ -193,4 +201,23 @@ export const render = {
       templates.libaryCard(data)
     );
   },
+
+  moreTrendingFilms(data) {
+    refs.galleryEl.insertAdjacentHTML(`beforeend`, templates.galleryCard(data));
+  },
+
+  loadMoreBtn() {
+    refs.galleryEl.insertAdjacentHTML(`beforeend`, templates.loadMoreBtn);
+  },
+};
+
+const timeConverter = minutes => {
+  const hours = Math.floor(minutes / 60);
+  const minute = minutes % 60;
+
+  if (hours > 0) {
+    return `${hours} hours, ${minute} minutes`;
+  } else {
+    return `${minute} minutes`;
+  }
 };

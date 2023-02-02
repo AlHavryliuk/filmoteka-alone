@@ -18,6 +18,7 @@ const actionСontroller = async event => {
 
 const libaryActive = () => {
   if (document.location.href.includes(`libary`)) {
+    modalPopup.addModalListeners();
     refs.libaryWatchedBtn.addEventListener(`click`, savedFilms.filterMovieList);
     refs.libaryQueueBtn.addEventListener(`click`, savedFilms.filterMovieList);
     refs.libaryAllBtn.addEventListener(`click`, savedFilms.filterMovieList);

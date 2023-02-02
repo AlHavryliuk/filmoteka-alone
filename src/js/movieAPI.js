@@ -7,6 +7,7 @@ export class theMovieAPI {
   constructor() {
     this.page = 1;
     this.query = null;
+    this.isActiveSearch = false;
   }
 
   async fetchTrendingMovie() {
@@ -15,7 +16,7 @@ export class theMovieAPI {
       {
         params: {
           api_key: theMovieAPI.API_KEY,
-          page: 1,
+          page: this.page,
         },
       }
     );
@@ -46,7 +47,7 @@ export class theMovieAPI {
       {
         params: {
           api_key: theMovieAPI.API_KEY,
-          page: 1,
+          page: this.page,
         },
       }
     );
@@ -65,14 +66,16 @@ export class theMovieAPI {
     return response.data;
   }
 
-  async fetchMovieByMovie(query) {
+  async fetchMovieByMovie() {
+    this.isActiveSearch = true;
     const response = await axios.get(`${theMovieAPI.BASE_URL}search/movie`, {
       params: {
         api_key: theMovieAPI.API_KEY,
-        query,
+        query: this.query,
+        page: this.page,
       },
     });
-
+    console.log(response);
     return response.data;
   }
 }

@@ -35,11 +35,13 @@ export const loadData = {
     const { results } = await movieAPI.fetchTreiler(id);
     const popupEl = document.querySelector(`.popup__trailer`);
     let trailerKey = null;
+    console.log(results);
     results.map(element => {
       if (element.name.toLowerCase().includes(`official trailer`)) {
         trailerKey = element.key;
       }
     });
+    if (trailerKey === null) trailerKey = results[0].key;
     render.defaultIfraim();
     const trailer = document.querySelector(`.popup__body-trailer`);
     trailer.src = updateTrailerLink(trailerKey);
@@ -59,19 +61,35 @@ export const loadData = {
   },
 
   async searchMovies(event) {
+    movieAPI.page = 1;
     const {
       target: { value: query },
     } = event;
-    if (query.length === 0) return render.trend();
-    const { results } = await movieAPI.fetchMovieByMovie(query);
-    const moviesList = results.filter(element => element.backdrop_path != null);
-    refs.galleryEl.innerHTML = '';
+    if (query.length === 0) {
+      movieAPI.isActiveSearch = false;
+      render.trend();
+      render.loadMoreBtn();
+      return;
+    } else {
+      movieAPI.query = query;
+    }
+
+    const { results, total_pages } = await movieAPI.fetchMovieByMovie();
+    const moviesList = [...results].filter(
+      element => element.backdrop_path != null
+    );
+    const removedElement = results.length - moviesList.length;
+    if (removedElement > 0) {
+      Notiflix.Notify.warning(`${removedElement} invalid elements were hidden`);
+    }
+    refs.galleryEl.replaceChildren();
     if (moviesList.length === 0) {
       Notiflix.Notify.failure(`
     No results were found for this query.`);
     } else {
       render.galleryMarkup(moviesList);
     }
+    if (total_pages >= movieAPI.page + 1) render.loadMoreBtn();
   },
 
   async libaryFilms() {
@@ -85,6 +103,29 @@ export const loadData = {
       }
     } catch (err) {
       console.log(err);
+    }
+  },
+
+  async moreMovies() {
+    movieAPI.page++;
+    console.log(movieAPI.isActiveSearch);
+    if (movieAPI.isActiveSearch) {
+      const { results, total_pages } = await movieAPI.fetchMovieByMovie();
+      const moviesList = [...results].filter(
+        element => element.backdrop_path != null
+      );
+      const removedElement = results.length - moviesList.length;
+      if (removedElement > 0) {
+        Notiflix.Notify.warning(
+          `${removedElement} invalid elements were hidden`
+        );
+      }
+      render.moreTrendingFilms(moviesList);
+      if (total_pages >= movieAPI.page + 1) render.loadMoreBtn();
+    } else {
+      const { results, total_pages } = await movieAPI.fetchTrendingMovie();
+      render.moreTrendingFilms(results);
+      if (total_pages >= movieAPI.page + 1) render.loadMoreBtn();
     }
   },
 };
