@@ -51,9 +51,11 @@ const templates = {
       vote_count,
       genres,
       production_countries,
+      release_date
     } = data;
     const country = production_countries[0].name;
     const genre = genres.map(({ name }) => name);
+    const date = release_date.slice(0, 4);
     return ` 
       <div class="popup__image-wrapper">
       <img class="popup__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="" >
@@ -64,6 +66,8 @@ const templates = {
             <ul class="popup__info-list">
               <li class="li__count" >Country</li>
               <li class="li__count">${country}</li>
+              <li class="li__count" >Year</li>
+              <li class="li__count">${date}</li>
               <li class="popup__info-list-vote">Vote / Votes</li>
                <li><span class="popup__info-rate">${vote_average.toFixed(
                  1

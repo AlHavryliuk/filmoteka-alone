@@ -41,6 +41,10 @@ export const loadData = {
         trailerKey = element.key;
       }
     });
+    if (results.length === 0) {
+      Notiflix.Notify.failure(`Youtube can't find a trailer for this movie.`);
+      return
+    }
     if (trailerKey === null) trailerKey = results[0].key;
     render.defaultIfraim();
     const trailer = document.querySelector(`.popup__body-trailer`);
