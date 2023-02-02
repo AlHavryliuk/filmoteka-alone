@@ -27,7 +27,6 @@
     transition: width 0.2s ease-out;
     transition: all 850ms;
   }
-
 }
 
 .gallery__card-subtitle-libary {
@@ -37,8 +36,6 @@
 .target-libary {
   @extend .target;
 }
-
-
 
 .gallery__template {
   width: 3fr;
