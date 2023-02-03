@@ -51,7 +51,7 @@ const templates = {
       vote_count,
       genres,
       production_countries,
-      release_date
+      release_date,
     } = data;
     const country = production_countries[0].name;
     const genre = genres.map(({ name }) => name);
@@ -163,6 +163,7 @@ const templates = {
   },
 
   loadMoreBtn: `<button class="load-more__card" >
+      <span class="load-more__title"> Load more </span>
       <img data-movie-id="loadMore" src="http://cdn.onlinewebfonts.com/svg/img_260976.png">
       <div class="target target__load-more" data-movie-id="loadMore"></div>
     </button>`,
